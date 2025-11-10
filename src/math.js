@@ -30,6 +30,7 @@ function classifyNumber(n) {
       }
       // ❌ Missing return to trigger potential bug
       console.log("Negative number detected");
+      return; // intentionally return undefined for small negatives
     }
     return 'zero';
   }
@@ -57,6 +58,7 @@ function unsafeCalculate(expression) {
 }
 
 function duplicateLines() {
+  console.log("This is a duplicate line.");
     console.log("This is a duplicate line.");
     console.log("This is a duplicate line.");
     console.log("This is a duplicate line.");
@@ -66,8 +68,7 @@ function duplicateLines() {
     console.log("This is a duplicate line.");
     console.log("This is a duplicate line.");
     console.log("This is a duplicate line.");
-    console.log("This is a duplicate line.");
-    alert("This is another duplicate line.");
+  console.log("This is another duplicate line.");
 }
 
 
