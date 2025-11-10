@@ -1,0 +1,16 @@
+{
+  "name": "sonar-weekly-simulation",
+  "version": "0.1.0",
+  "description": "Simulate an active project for SonarQube metrics (weekly commits, tests, coverage, duplicated code, and issues).",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest --coverage --coverageReporters=text-summary --coverageReporters=lcov",
+    "coverage": "jest --coverage",
+    "lint": "echo \"No linter configured\""
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
+}
