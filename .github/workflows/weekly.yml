@@ -2,12 +2,13 @@ name: Weekly simulation run
 
 on:
   schedule:
-    - cron: '0 0 * * 0' # every Sunday at 00:00 UTC
+    - cron: '0 0 * * 0' # Every Sunday at 00:00 UTC
   workflow_dispatch:
 
 jobs:
   run-tests-and-commit:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -40,15 +41,22 @@ jobs:
           git commit -m "chore: weekly simulation run $(date --utc +%Y-%m-%dT%H:%M:%SZ)" || echo "no changes to commit"
           git push
 
-      - name: Run SonarQube analysis
-        if: ${{ secrets.SONAR_TOKEN != '' && secrets.SONAR_HOST_URL != '' }}
+      - name: Run SonarQube analysis (conditional runtime check)
         env:
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          echo "SONAR_TOKEN present — running sonar-scanner"
+          if [ -z "$SONAR_TOKEN" ] || [ -z "$SONAR_HOST_URL" ]; then
+            echo "⚠️  Skipping SonarQube analysis — SONAR_TOKEN or SONAR_HOST_URL not set."
+            exit 0
+          fi
+
+          echo "✅ Running SonarQube analysis..."
           npx -y sonar-scanner@4.3.0 \
+            -Dsonar.projectKey=qdbrowserstack_sonar-weekly-simulation \
+            -Dsonar.organization=qdbrowserstack \
             -Dsonar.host.url="$SONAR_HOST_URL" \
             -Dsonar.login="$SONAR_TOKEN" \
+            -Dsonar.sources=. \
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
-            -Dsonar.sourceEncoding=UTF-8 || echo "sonar-scanner failed (exit ignored)"
+            -Dsonar.sourceEncoding=UTF-8 || echo "⚠️  SonarQube analysis failed (exit ignored)"
