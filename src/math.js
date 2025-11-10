@@ -56,6 +56,21 @@ function unsafeCalculate(expression) {
   }
 }
 
+function duplicateLines() {
+    console.log("This is a duplicate line.");
+    console.log("This is a duplicate line.");
+    console.log("This is a duplicate line.");
+    console.log("This is a duplicate line.");
+    console.log("This is a duplicate line.");
+    console.log("This is a duplicate line.");
+    console.log("This is a duplicate line.");
+    console.log("This is a duplicate line.");
+    console.log("This is a duplicate line.");
+    console.log("This is a duplicate line.");
+}
+
+duplicateLines();
+
 module.exports = {
   add,
   multiply,
