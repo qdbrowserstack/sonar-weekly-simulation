@@ -11,7 +11,7 @@ describe('math utilities', () => {
     expect(math.classifyNumber(2)).toBe('positive-even');
     expect(math.classifyNumber(3)).toBe('positive-odd');
     expect(math.classifyNumber(0)).toBe('zero');
-    expect(math.classifyNumber(-5)).toBe('negative');
+    expect(math.classifyNumber(-5)).toBeUndefined(); // because of missing return
     expect(math.classifyNumber(-200)).toBe('large-negative');
   });
 
@@ -19,5 +19,10 @@ describe('math utilities', () => {
     expect(math.factorial(0)).toBe(1);
     expect(math.factorial(5)).toBe(120);
     expect(math.factorial(-1)).toBeNull();
+  });
+
+  test('unsafeCalculate runs', () => {
+    expect(math.unsafeCalculate('2 + 3')).toBe(5);
+    expect(math.unsafeCalculate('invalid code')).toBeNull();
   });
 });

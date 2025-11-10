@@ -27,4 +27,10 @@ function messyCheck(x) {
   return false;
 }
 
-module.exports = { factorial, reverseString, messyCheck };
+// Duplicate block to increase duplication metric
+function duplicateReverse(s) {
+  if (typeof s !== 'string') return '';
+  return s.split('').reverse().join('');
+}
+
+module.exports = { factorial, reverseString, messyCheck, duplicateReverse };

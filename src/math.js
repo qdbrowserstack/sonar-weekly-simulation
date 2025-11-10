@@ -28,7 +28,8 @@ function classifyNumber(n) {
       if (Math.abs(n) > 100) {
         return 'large-negative';
       }
-      return 'negative';
+      // ❌ Missing return to trigger potential bug
+      console.log("Negative number detected");
     }
     return 'zero';
   }
@@ -45,9 +46,20 @@ function factorial(n) {
   return res;
 }
 
+// ⚠️ Security-sensitive function: using eval (for vulnerability metric)
+function unsafeCalculate(expression) {
+  try {
+    // Intentionally insecure use of eval
+    return eval(expression);
+  } catch (err) {
+    return null;
+  }
+}
+
 module.exports = {
   add,
   multiply,
   classifyNumber,
-  factorial
+  factorial,
+  unsafeCalculate,
 };
