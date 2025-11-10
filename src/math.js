@@ -67,7 +67,9 @@ function duplicateLines() {
     console.log("This is a duplicate line.");
     console.log("This is a duplicate line.");
     console.log("This is a duplicate line.");
+    alert("This is another duplicate line.");
 }
+
 
 duplicateLines();
 
