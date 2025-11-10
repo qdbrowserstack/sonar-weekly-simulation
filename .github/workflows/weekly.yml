@@ -67,8 +67,11 @@ jobs:
             exit 0
           fi
 
+          echo "🚀 Installing sonarqube-scanner..."
+          npm install -g sonarqube-scanner
+
           echo "🚀 Running SonarQube analysis on SonarCloud..."
-          npx -y sonar-scanner@4.3.0 \
+          sonar-scanner \
             -Dsonar.projectKey=qdbrowserstack_sonar-weekly-simulation \
             -Dsonar.organization=qdbrowserstack \
             -Dsonar.host.url="$SONAR_HOST_URL" \
