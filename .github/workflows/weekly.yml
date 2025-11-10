@@ -54,6 +54,13 @@ jobs:
             exit 0
           fi
 
+          echo "Running SonarQube analysis..."
+          if [ -f coverage/lcov.info ]; then
+            echo "✅ Found coverage/lcov.info"
+          else
+            echo "⚠️ coverage/lcov.info not found. Make sure Jest generated coverage."
+          fi
+
           echo "✅ Running SonarQube analysis..."
           npx -y sonar-scanner@4.3.0 \
             -Dsonar.projectKey=qdbrowserstack_sonar-weekly-simulation \
