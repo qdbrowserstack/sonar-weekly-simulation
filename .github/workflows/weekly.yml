@@ -41,8 +41,9 @@ jobs:
           git push
 
       - name: Optional: run SonarQube analysis
-        if: ${{ secrets.SONAR_TOKEN != '' }}
+        if: ${{ secrets.SONAR_TOKEN != '' && secrets.SONAR_HOST_URL != '' }}
         env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           echo "SONAR_TOKEN present — running sonar-scanner"
@@ -50,6 +51,7 @@ jobs:
           # sonar-project.properties in the repo provides projectKey/organization;
           # we explicitly point the scanner at the Jest LCOV report that Jest produces.
           npx -y sonar-scanner@4.3.0 \
+            -Dsonar.host.url="$SONAR_HOST_URL" \
             -Dsonar.login="$SONAR_TOKEN" \
             -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
-            -Dsonar.sourceEncoding=UTF-8 || echo "sonar-scanner failed (exit ignored)"
+            -Dsonar.sourceEncoding=UTF-8
